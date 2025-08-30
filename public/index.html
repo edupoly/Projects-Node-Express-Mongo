@@ -11,12 +11,11 @@
 
 <body>
     <h1>Number of live users &#128100;:<span id="viewers"></span></h1>
-
     <script>
         var socket = io();
         socket.on('liveCount', (msg) => {
             console.log(msg)
-            document.getElementById("viewers").innerHTML = msg.liveViwers;
+            document.getElementById("viewers").innerHTML = msg.liveCount;
         })
     </script>
 </body>
