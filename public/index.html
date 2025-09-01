@@ -10,13 +10,29 @@
 </head>
 
 <body>
-    <h1>Number of live users &#128100;:<span id="viewers"></span></h1>
+    <h1>Edupoly Group Chat</h1>
+    <div>
+        <div>
+            <ul id="chatmessages" style="list-style: none;padding:0px"></ul>
+        </div>
+        <div>
+            <input type="text" name="usermessage" id="mymessage">
+            <button onclick="sendMessage()">Send Message</button>
+        </div>
+    </div>
     <script>
         var socket = io();
-        socket.on('liveCount', (msg) => {
-            console.log(msg)
-            document.getElementById("viewers").innerHTML = msg.liveCount;
+        var username = prompt("")
+        socket.emit("messageVachindi", { message: "new user connected", username })
+        socket.on("messageVachindi", function (ms) {
+            var li = document.createElement("li")
+            li.innerHTML = `<b>${ms.username}</b>:<span>${ms.message}</span>`;
+            document.getElementById("chatmessages").appendChild(li)
+            console.log(ms);
         })
+        function sendMessage() {
+            socket.emit("messageVachindi", { message: document.getElementById("mymessage").value, username })
+        }
     </script>
 </body>
 
