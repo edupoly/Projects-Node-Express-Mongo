@@ -17,9 +17,8 @@
             document.getElementById("cnt").innerHTML = msg.liveCount;
         })
         function incCount() {
-            fetch("/incCount").then((res) => {
-                console.log(res);
-            })
+            alert("incCount")
+            socket.emit("incCount", { msg: 'update' })
         }
     </script>
 </body>

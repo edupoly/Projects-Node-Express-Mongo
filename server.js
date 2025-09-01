@@ -10,12 +10,13 @@ app.use(express.static(__dirname + "/public"));
 io.on("connection", function (socket) {
   socket.emit("liveCount", { liveCount });
   console.log("connected");
+  socket.on("incCount", (socket) => {
+    console.log("Socket based counter increment");
+    liveCount++;
+    io.emit("liveCount", { liveCount });
+  });
 });
-app.get("/incCount", (req, res) => {
-  liveCount++;
-  io.emit("liveCount", { liveCount });
-  res.send("Count Inc");
-});
+
 server.listen(3900, () => {
   console.log("running on " + 3900);
 });
